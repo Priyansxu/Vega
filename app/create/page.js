@@ -144,15 +144,16 @@ export default function CreatePage() {
         </div>
       )}
 
-      <footer className="bottom-5 left-0 right-0 text-sm text-neutral-400 flex items-center justify-center gap-2">
-  <FaHeart className="w-4 h-4 text-red-500" />
+      <footer className="fixed bottom-6 left-0 right-0 text-sm text-neutral-400 flex items-center justify-center gap-2">
   <a
     href="https://priyanshu.is-a.dev"
     target="_blank"
     rel="noopener noreferrer"
     className="flex items-center gap-1 hover:text-neutral-200 transition"
   >
-    Made with love by Priyanshu
+    Made with
+     <FaHeart className="text-red-500" />
+    by Priyanshu
        <ArrowUpRight className="w-4 h-4" />
       </a>
      </footer>

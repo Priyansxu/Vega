@@ -8,7 +8,7 @@ export default function Page() {
   return (
     <div className="relative w-full min-h-screen overflow-hidden">
       <div className="absolute inset-0 -z-10">
-        <ColorBends rotation={-25} frequency={1} />
+        <ColorBends rotation={-10} frequency={1} />
       </div>
 
       <header className="sticky top-4 mx-4 sm:mx-6 lg:mx-8 z-20 backdrop-blur-md bg-white/10 border border-white/20 shadow-lg rounded-3xl">
@@ -28,11 +28,11 @@ export default function Page() {
             <ArrowRight className="w-4 h-4 opacity-80" />
           </button>
 
-          <h2 className="text-3xl sm:text-6xl md:text-8xl lg:text-9xl font-bold mb-8 leading-tight tracking-tight bg-gradient-to-b from-white to-gray-300 bg-clip-text text-transparent [-webkit-text-stroke:1px_rgba(255,255,255,0.3)]">
+          <h2 className="text-3xl sm:text-6xl md:text-8xl lg:text-9xl font-bold mb-8 leading-tight bg-gradient-to-b from-white to-gray-300 bg-clip-text text-transparent [-webkit-text-stroke:1px_rgba(255,255,255,0.3)]">
             Unleashed, Vega AI
           </h2>
 
-          <p className="font-bold sm:text-lg md:text-xl text-white/80 max-w-2xl mx-auto mb-12 leading-relaxed">
+          <p className="font-bold sm:text-lg md:text-xl text-white/90 max-w-2xl mx-auto mb-12 leading-relaxed">
             Transform your ideas into stunning visuals instantly with our AI-powered image
             generation engine.
           </p>

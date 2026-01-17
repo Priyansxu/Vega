@@ -3,7 +3,8 @@
 import { useState, useRef } from "react"
 import { RiAiGenerate } from "react-icons/ri"
 import { IoSparkles } from "react-icons/io5"
-import { Download, RotateCcw, Loader, Heart, ArrowUpRight } from "lucide-react"
+import { FaHeart } from "react-icons/fa"
+import { Download, RotateCcw, Loader, ArrowUpRight } from "lucide-react"
 
 export default function CreatePage() {
   const [prompt, setPrompt] = useState("")
@@ -143,8 +144,8 @@ export default function CreatePage() {
         </div>
       )}
 
-      <footer className="fixed bottom-6 left-0 right-0 text-sm text-neutral-400 flex items-center justify-center gap-2">
-  <Heart className="w-4 h-4 text-red-500" />
+      <footer className="bottom-5 left-0 right-0 text-sm text-neutral-400 flex items-center justify-center gap-2">
+  <FaHeart className="w-4 h-4 text-red-500" />
   <a
     href="https://priyanshu.is-a.dev"
     target="_blank"

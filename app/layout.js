@@ -47,6 +47,7 @@ export default function RootLayout({ children }) {
       <head />
       <body className="bg-black text-white">
         {children}
+        <Analytics />
       </body>
     </html>
   )

@@ -1,7 +1,8 @@
 "use client"
 
 import Link from "next/link"
-import { Zap, ArrowRight } from "lucide-react"
+import { ArrowRight } from "lucide-react"
+import { BiSolidZap } from "react-icons/bi"
 import ColorBends from "@/components/ColorBends"
 
 export default function Page() {
@@ -11,7 +12,7 @@ export default function Page() {
         <ColorBends rotation={-10} frequency={1} />
       </div>
 
-      <header className="sticky top-4 mx-4 sm:mx-6 lg:mx-8 z-20 backdrop-blur-md bg-white/10 border border-white/20 shadow-lg rounded-3xl">
+      <header className="sticky top-4 mx-4 sm:mx-6 lg:mx-8 z-20 backdrop-blur-md bg-white/10 border border-white/20 shadow-lg rounded-xl">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
           <h1 className="text-2xl sm:text-3xl font-bold text-center text-white">
             Vega AI
@@ -23,7 +24,7 @@ export default function Page() {
         <div className="flex flex-col items-center text-center max-w-4xl mx-auto">
 
           <button className="mb-8 inline-flex items-center gap-2 px-4 py-2 bg-white/15 backdrop-blur-sm border border-white/25 text-white/90 text-sm font-medium rounded-xl shadow-md hover:bg-white/25 transition-all duration-300">
-            <Zap className="w-4 h-4" />
+            <BiSolidZap className="w-4 h-4" />
             <span>Powered by Cloudflare</span>
             <ArrowRight className="w-4 h-4 opacity-80" />
           </button>

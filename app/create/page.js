@@ -3,7 +3,7 @@
 import { useState, useRef } from "react"
 import { RiAiGenerate } from "react-icons/ri"
 import { IoSparkles } from "react-icons/io5"
-import { Download, RotateCcw, Loader } from "lucide-react"
+import { Download, RotateCcw, Loader, Code } from "lucide-react"
 
 export default function CreatePage() {
   const [prompt, setPrompt] = useState("")
@@ -56,13 +56,13 @@ export default function CreatePage() {
 
   return (
     <div className="min-h-screen bg-black/90 flex flex-col items-center px-4 py-8">
-      <h1 className="mb-5 text-xl font-bold text-neutral-200">
-        Vega AI
+      <h1 className="mb-6 text-xl font-bold text-neutral-200">
+        VEGA AI
       </h1>
 
       <div
-        className="w-full max-w-3xl aspect-square rounded-2xl overflow-hidden
-        flex items-center justify-center mb-4"
+        className="w-full max-w-3xl aspect-square rounded-lg overflow-hidden
+        flex items-center justify-center"
         style={{ backgroundColor: "#111111" }}
       >
         {image ? (
@@ -86,13 +86,13 @@ export default function CreatePage() {
 
       <form
         onSubmit={generateImage}
-        className="w-full max-w-3xl flex gap-2"
+        className="w-full max-w-3xl mt-6 space-y-3"
       >
         <textarea
           value={prompt}
           onChange={(e) => setPrompt(e.target.value)}
           placeholder="A futuristic city floating above clouds..."
-          className="flex-1 resize-none px-3 py-2 rounded-lg
+          className="w-full resize-none px-3 py-2 rounded-lg
           bg-black/60 border border-neutral-800
           text-neutral-100 text-sm font-mono
           placeholder:text-neutral-600
@@ -103,21 +103,28 @@ export default function CreatePage() {
         <button
           type="submit"
           disabled={loading}
-          className="px-4 rounded-lg flex items-center justify-center
+          className="w-full flex items-center justify-center gap-2
+          px-4 py-2 rounded-lg
           bg-white text-black font-semibold
           disabled:opacity-50 transition"
         >
           {loading ? (
-            <Loader className="w-4 h-4 animate-spin" />
+            <>
+              <Loader className="w-4 h-4 animate-spin" />
+              Generating
+            </>
           ) : (
-            <RiAiGenerate className="w-4 h-4" />
+            <>
+              <RiAiGenerate className="w-4 h-4" />
+              Generate
+            </>
           )}
         </button>
       </form>
 
       {image && (
         <div
-          className="mt-3 w-full max-w-3xl flex divide-x divide-neutral-800
+          className="mt-4 w-full max-w-3xl flex divide-x divide-neutral-800
           rounded-lg overflow-hidden
           bg-black/60 border border-neutral-800"
         >
@@ -128,13 +135,25 @@ export default function CreatePage() {
 
       {error && (
         <div
-          className="mt-3 max-w-3xl w-full
+          className="mt-4 max-w-3xl w-full
           rounded-lg border border-red-800 bg-red-900/30
           px-3 py-2 text-xs font-mono text-red-300"
         >
           Error: {error}
         </div>
       )}
+
+      <footer className="mt-10 text-xs text-neutral-500 flex items-center gap-2">
+        <Code className="w-4 h-4" />
+        <a
+          href="https://priyanshu.is-a.dev"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="hover:text-neutral-300 transition"
+        >
+          made with love by Priyanshu
+        </a>
+      </footer>
     </div>
   )
 }

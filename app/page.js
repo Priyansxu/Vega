@@ -20,7 +20,8 @@ export default function Page() {
       </header>
 
       <main className="relative z-10 flex flex-col items-center justify-center min-h-[calc(100vh-80px)] px-4 py-8 sm:py-12">
-        <div className="text-center max-w-3xl mx-auto">
+        {/* Added items-center here to ensure the button is centered */}
+        <div className="flex flex-col items-center text-center max-w-3xl mx-auto">
 
           <button className="mb-6 inline-flex items-center gap-2 px-4 py-2 bg-white/15 backdrop-blur-sm border border-white/25 text-white/90 text-sm font-medium rounded-xl shadow-md hover:bg-white/25 hover:border-white/40 transition-all duration-300">
             <Zap className="w-4 h-4" />
@@ -28,7 +29,15 @@ export default function Page() {
             <ArrowRight className="w-4 h-4 opacity-80" />
           </button>
 
-          <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white drop-shadow-lg mb-6 sm:mb-8 leading-tight">
+          {/* INNER GLOW EFFECT:
+            - text-transparent + bg-clip-text: Allows us to see the "inner" styles.
+            - bg-gradient: Simulates the inner glow light hitting the edges.
+            - [-webkit-text-stroke]: The white border you requested.
+          */}
+          <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-6 sm:mb-8 leading-tight 
+            text-transparent bg-clip-text bg-gradient-to-b from-white via-gray-400 to-gray-500
+            [-webkit-text-stroke:1px_white]
+            drop-shadow-[0_2px_2px_rgba(255,255,255,0.5)]">
             Unleashed, Vega AI
           </h2>
 
@@ -37,8 +46,8 @@ export default function Page() {
             generation engine.
           </p>
 
-          <Link href="/create">
-            <button className="block text-center border border-white bg-[#dedfe1] text-black rounded-md mt-6 py-3 px-6 font-mono transition-colors duration-300 hover:bg-[#bcbbfb] duration-300 transform hover:scale-105 active:scale-95">
+          <Link href="/create" className="w-full flex justify-center">
+            <button className="border border-white bg-[#dedfe1] text-black rounded-md py-3 px-8 font-mono transition-all duration-300 hover:bg-[#bcbbfb] transform hover:scale-105 active:scale-95">
               Start Creating
             </button>
           </Link>

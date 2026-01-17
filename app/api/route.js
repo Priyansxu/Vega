@@ -6,8 +6,8 @@ export async function POST(request) {
       return Response.json({ error: "Invalid prompt" }, { status: 400 })
     }
 
-    const accountId = "b6c89b2786be102a5e4d8704d79f60d3"
-    const apiToken = "qAj2Xuw7I688ymCSR6IBKf498ZTDdl32jOyy5RpP"
+        const accountId = "b6c89b2786be102a5e4d8704d79f60d3"
+        const apiToken = "qAj2Xuw7I688ymCSR6IBKf498ZTDdl32jOyy5RpP"
 
     if (!accountId || !apiToken) {
       return Response.json({ error: "Server configuration error" }, { status: 500 })
@@ -21,22 +21,18 @@ export async function POST(request) {
           Authorization: `Bearer ${apiToken}`,
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({
-          prompt,
-        }),
+        body: JSON.stringify({ prompt }),
       }
     )
 
-    if (!res.ok) {
-      const err = await res.text()
-      throw new Error(err || "Cloudflare request failed")
+    const data = await res.json()
+
+    if (!data.success || !data.result?.image?.[0]) {
+      throw new Error("Generation failed")
     }
 
-    const buffer = await res.arrayBuffer()
-    const base64 = Buffer.from(buffer).toString("base64")
-
     return Response.json({
-      image: `data:image/png;base64,${base64}`,
+      image: `data:image/png;base64,${data.result.image[0]}`,
     })
   } catch (error) {
     return Response.json(

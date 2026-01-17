@@ -69,7 +69,7 @@ export default function CreatePage() {
       {/* Background */}
       <div className="absolute inset-0 -z-10">
         <ColorBends rotation={-10} frequency={1} />
-        <div className="absolute inset-0 bg-black/30" />
+        <div className="absolute inset-0 bg-black/70" />
       </div>
 
       <Header />
@@ -107,8 +107,8 @@ export default function CreatePage() {
           {/* Prompt Box */}
           <form
             onSubmit={generateImage}
-            className="max-w-3xl mx-auto space-y-4 backdrop-blur-xl
-            bg-white/10 border border-white/20 rounded-2xl p-6 shadow-xl"
+            className="max-w-3xl mx-auto space-y-3 backdrop-blur-xl
+            bg-white/10 border border-white/20 rounded-2xl p-4 shadow-xl"
           >
             <div className="space-y-2">
               <label className="text-xs font-mono text-white/70">
@@ -118,7 +118,7 @@ export default function CreatePage() {
                 value={prompt}
                 onChange={(e) => setPrompt(e.target.value)}
                 placeholder="A futuristic city floating above clouds..."
-                className="w-full h-28 px-4 py-3 rounded-lg
+                className="w-full h-18 px-1 py-2 rounded-lg
                 bg-white/5 border border-white/20 text-white font-mono text-sm
                 placeholder:text-white/40 focus:outline-none
                 focus:ring-2 focus:ring-white/30 resize-none"
@@ -127,7 +127,7 @@ export default function CreatePage() {
 
             {error && (
               <div className="p-3 rounded-lg bg-red-500/15 border border-red-500/30 text-red-200 text-xs font-mono">
-                ⚠ {error}
+                Error: {error}
               </div>
             )}
 
@@ -166,7 +166,7 @@ export default function CreatePage() {
                 icon={RotateCcw}
                 label="Regenerate"
               />
-              <ActionButton onClick={() => setImage(null)} icon={X} label="Clear" />
+              <ActionButton onClick={() => setImage(null)} icon={X} label="" />
             </div>
           )}
         </div>

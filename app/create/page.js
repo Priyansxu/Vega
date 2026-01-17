@@ -3,7 +3,7 @@
 import { useState, useRef } from "react"
 import { RiAiGenerate } from "react-icons/ri"
 import { IoSparkles } from "react-icons/io5"
-import { Download, RotateCcw, Loader, Code } from "lucide-react"
+import { Download, RotateCcw, Loader, Code, ArrowUpRight } from "lucide-react"
 
 export default function CreatePage() {
   const [prompt, setPrompt] = useState("")
@@ -143,17 +143,18 @@ export default function CreatePage() {
         </div>
       )}
 
-      <footer className="mt-10 text-xs text-neutral-500 flex items-center gap-2">
-        <Code className="w-4 h-4" />
-        <a
-          href="https://priyanshu.is-a.dev"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="hover:text-neutral-300 transition"
-        >
-          made with love by Priyanshu
-        </a>
-      </footer>
+      <footer className="fixed bottom-6 left-0 right-0 text-sm text-neutral-400 flex items-center justify-center gap-2">
+  <Heart className="w-4 h-4 text-red-500" />
+  <a
+    href="https://priyanshu.is-a.dev"
+    target="_blank"
+    rel="noopener noreferrer"
+    className="flex items-center gap-1 hover:text-neutral-200 transition"
+  >
+    Made with love by Priyanshu
+       <ArrowUpRight className="w-4 h-4" />
+      </a>
+     </footer>
     </div>
   )
 }

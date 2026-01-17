@@ -2,6 +2,8 @@
 
 import { useState, useRef } from "react"
 import { Download, Zap, Loader, RotateCcw, X } from "lucide-react"
+import ColorBends from "@/components/ColorBends"
+import Header from "@/components/Header"
 
 export default function CreatePage() {
   const [prompt, setPrompt] = useState("")
@@ -28,29 +30,15 @@ export default function CreatePage() {
         body: JSON.stringify({ prompt }),
       })
 
-      // Check if response has content
       const text = await response.text()
-      
-      if (!text) {
-        throw new Error("Empty response from server")
-      }
+      if (!text) throw new Error("Empty response from server")
 
-      let data
-      try {
-        data = JSON.parse(text)
-      } catch (parseError) {
-        console.error("Failed to parse response:", text)
-        throw new Error("Invalid response from server")
-      }
-
-      if (!response.ok) {
-        throw new Error(data.error || "Failed to generate image")
-      }
+      const data = JSON.parse(text)
+      if (!response.ok) throw new Error(data.error || "Failed to generate image")
 
       setImage(data.image)
     } catch (err) {
-      console.error("Generation error:", err)
-      setError(err instanceof Error ? err.message : "An error occurred")
+      setError(err?.message || "An error occurred")
     } finally {
       setLoading(false)
     }
@@ -58,31 +46,34 @@ export default function CreatePage() {
 
   const downloadImage = async () => {
     if (!image) return
+    const res = await fetch(image)
+    const blob = await res.blob()
+    const url = URL.createObjectURL(blob)
 
-    try {
-      const response = await fetch(image)
-      const blob = await response.blob()
-      const url = window.URL.createObjectURL(blob)
+    const a = document.createElement("a")
+    a.href = url
+    a.download = `vega-ai-${Date.now()}.png`
+    a.click()
 
-      const a = document.createElement("a")
-      a.href = url
-      a.download = `vega-ai-${Date.now()}.png`
-      document.body.appendChild(a)
-      a.click()
-
-      window.URL.revokeObjectURL(url)
-      document.body.removeChild(a)
-    } catch {
-      setError("Failed to download image")
-    }
+    URL.revokeObjectURL(url)
   }
 
   return (
-    <main className="min-h-screen bg-black text-white flex flex-col">
-      <div className="flex-1 flex flex-col gap-8 p-6 md:p-8 max-w-6xl mx-auto w-full">
-        {/* Image Display */}
-        <div className="w-full flex items-center justify-center">
-          <div className="w-full max-w-2xl aspect-square bg-gradient-to-br from-neutral-900 to-neutral-950 border border-neutral-800 rounded-xl overflow-hidden flex items-center justify-center">
+    <div className="relative min-h-screen overflow-hidden">
+      {/* Background */}
+      <div className="absolute inset-0 -z-10">
+        <ColorBends rotation={-10} frequency={1} />
+      </div>
+
+      <Header />
+
+      <main className="relative z-10 flex flex-col items-center px-4 py-10 sm:py-14">
+        <div className="w-full max-w-5xl space-y-10">
+
+          {/* Image Card */}
+          <div className="w-full aspect-square max-w-3xl mx-auto rounded-2xl overflow-hidden
+            backdrop-blur-xl bg-white/10 border border-white/20 shadow-2xl
+            flex items-center justify-center">
             {image ? (
               <img
                 ref={imageRef}
@@ -92,49 +83,50 @@ export default function CreatePage() {
               />
             ) : (
               <div className="text-center space-y-4 px-6">
-                <div className="w-16 h-16 mx-auto rounded-full bg-neutral-800 flex items-center justify-center">
-                  <Zap className="w-8 h-8 text-neutral-400" />
+                <div className="w-16 h-16 mx-auto rounded-full bg-white/15 flex items-center justify-center">
+                  <Zap className="w-8 h-8 text-white/80" />
                 </div>
-                <p className="text-neutral-400 text-lg">
-                  {loading
-                    ? "Generating your masterpiece..."
-                    : "Your image will appear here"}
+                <p className="text-white/80 text-lg">
+                  {loading ? "Generating your masterpiece..." : "Your image will appear here"}
                 </p>
               </div>
             )}
           </div>
-        </div>
 
-        {/* Controls */}
-        <div className="w-full max-w-2xl mx-auto">
-          <form onSubmit={generateImage} className="space-y-4">
+          {/* Controls */}
+          <form
+            onSubmit={generateImage}
+            className="max-w-3xl mx-auto space-y-4 backdrop-blur-xl
+              bg-white/10 border border-white/20 rounded-2xl p-6 shadow-xl"
+          >
             <div className="space-y-2">
-              <label
-                htmlFor="prompt"
-                className="text-sm font-medium text-neutral-300 block"
-              >
+              <label className="text-sm font-medium text-white/80">
                 Describe your vision
               </label>
               <textarea
-                id="prompt"
                 value={prompt}
                 onChange={(e) => setPrompt(e.target.value)}
-                placeholder="A serene mountain landscape with aurora borealis..."
-                className="w-full h-28 px-4 py-3 bg-neutral-900 border border-neutral-800 rounded-lg text-white placeholder:text-neutral-600 focus:outline-none focus:ring-2 focus:ring-white/20 resize-none"
+                placeholder="A futuristic city floating above clouds..."
+                className="w-full h-28 px-4 py-3 rounded-lg
+                  bg-white/5 border border-white/20 text-white
+                  placeholder:text-white/40 focus:outline-none
+                  focus:ring-2 focus:ring-white/30 resize-none"
               />
             </div>
 
             {error && (
-              <div className="p-3 bg-red-950/50 border border-red-900/50 rounded-lg text-red-300 text-sm flex gap-2">
-                <span>⚠️</span>
-                <span>{error}</span>
+              <div className="p-3 rounded-lg bg-red-500/15 border border-red-500/30 text-red-200 text-sm">
+                ⚠️ {error}
               </div>
             )}
 
             <button
               type="submit"
               disabled={loading}
-              className="w-full flex items-center justify-center gap-2 px-6 py-3.5 bg-white text-black rounded-lg font-semibold hover:bg-neutral-100 disabled:opacity-50"
+              className="w-full flex items-center justify-center gap-2
+                px-6 py-3.5 rounded-lg font-semibold
+                bg-white text-black hover:bg-neutral-100
+                disabled:opacity-50 transition"
             >
               {loading ? (
                 <>
@@ -150,38 +142,37 @@ export default function CreatePage() {
             </button>
           </form>
 
+          {/* Action Buttons */}
           {image && (
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mt-6">
-              <button
-                onClick={downloadImage}
-                className="flex items-center justify-center gap-2 px-4 py-3 bg-neutral-900 border border-neutral-800 rounded-lg hover:bg-neutral-800"
-              >
-                <Download className="w-4 h-4" />
-                <span className="hidden sm:inline">Download</span>
-              </button>
-
-              <button
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 max-w-3xl mx-auto">
+              <ActionButton onClick={downloadImage} icon={Download} label="Download" />
+              <ActionButton
                 onClick={() => {
                   setImage(null)
                   setPrompt("")
                 }}
-                className="flex items-center justify-center gap-2 px-4 py-3 bg-neutral-900 border border-neutral-800 rounded-lg hover:bg-neutral-800"
-              >
-                <RotateCcw className="w-4 h-4" />
-                <span className="hidden sm:inline">Regenerate</span>
-              </button>
-
-              <button
-                onClick={() => setImage(null)}
-                className="flex items-center justify-center gap-2 px-4 py-3 bg-neutral-900 border border-neutral-800 rounded-lg hover:bg-neutral-800"
-              >
-                <X className="w-4 h-4" />
-                <span className="hidden sm:inline">Clear</span>
-              </button>
+                icon={RotateCcw}
+                label="Regenerate"
+              />
+              <ActionButton onClick={() => setImage(null)} icon={X} label="Clear" />
             </div>
           )}
         </div>
-      </div>
-    </main>
+      </main>
+    </div>
+  )
+}
+
+function ActionButton({ onClick, icon: Icon, label }) {
+  return (
+    <button
+      onClick={onClick}
+      className="flex items-center justify-center gap-2 px-4 py-3
+        rounded-xl backdrop-blur-lg bg-white/10 border border-white/20
+        text-white hover:bg-white/20 transition"
+    >
+      <Icon className="w-4 h-4" />
+      <span className="hidden sm:inline">{label}</span>
+    </button>
   )
 }

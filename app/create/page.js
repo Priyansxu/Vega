@@ -2,14 +2,13 @@
 
 import { useState, useRef } from "react"
 import {
-  Download,
-  Loader,
-  RotateCcw,
-  X,
-  Sparkles,
-} from "lucide-react"
+  RiAiGenerate,
+  RiDownload2Line,
+  RiRestartLine,
+  RiCloseLine,
+  RiSparklingLine,
+} from "react-icons/ri"
 import ColorBends from "@/components/ColorBends"
-import Header from "@/components/Header"
 
 export default function CreatePage() {
   const [prompt, setPrompt] = useState("")
@@ -29,7 +28,7 @@ export default function CreatePage() {
     setError("")
 
     try {
-      const response = await fetch("/api/generate", {
+      const response = await fetch("/api", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ prompt }),
@@ -65,22 +64,18 @@ export default function CreatePage() {
 
   return (
     <div className="relative min-h-screen overflow-hidden bg-black">
-      {/* Background */}
       <div className="absolute inset-0 -z-10">
         <ColorBends rotation={-10} frequency={1} />
         <div className="absolute inset-0 bg-black/90" />
       </div>
 
-      <Header />
-
       <main className="relative z-10 flex flex-col items-center px-4 py-10 sm:py-14">
         <div className="w-full max-w-5xl space-y-10">
 
-          {/* Image Canvas */}
           <div
             className="w-full aspect-square max-w-3xl mx-auto rounded-2xl overflow-hidden
-            backdrop-blur-xl bg-black/60 border border-neutral-800 shadow-2xl
-            flex items-center justify-center"
+            backdrop-blur-xl flex items-center justify-center"
+            style={{ backgroundColor: "#111111" }}
           >
             {image ? (
               <img
@@ -92,7 +87,7 @@ export default function CreatePage() {
             ) : (
               <div className="text-center space-y-3 px-6 font-mono">
                 <div className="w-14 h-14 mx-auto rounded-full bg-neutral-900 flex items-center justify-center">
-                  <Sparkles className="w-6 h-6 text-neutral-300" />
+                  <RiSparklingLine className="w-6 h-6 text-neutral-300" />
                 </div>
                 <p className="text-neutral-400 text-sm">
                   {loading
@@ -103,7 +98,6 @@ export default function CreatePage() {
             )}
           </div>
 
-          {/* Prompt Box */}
           <form
             onSubmit={generateImage}
             className="max-w-3xl mx-auto space-y-4 backdrop-blur-xl
@@ -135,37 +129,32 @@ export default function CreatePage() {
               disabled={loading}
               className="w-full flex items-center justify-center gap-2
               px-6 py-3 rounded-lg font-semibold
-              bg-neutral-900 text-neutral-100 hover:bg-neutral-800
+              bg-white text-black hover:bg-neutral-100
               disabled:opacity-50 transition"
             >
               {loading ? (
                 <>
-                  <Loader className="w-4 h-4 animate-spin" />
+                  <RiAiGenerate className="w-4 h-4 animate-pulse" />
                   Generating
                 </>
               ) : (
                 <>
-                  <Sparkles className="w-4 h-4" />
+                  <RiAiGenerate className="w-4 h-4" />
                   Generate
                 </>
               )}
             </button>
           </form>
 
-          {/* Action Bar */}
           {image && (
             <div
               className="max-w-3xl mx-auto flex divide-x divide-neutral-800
               rounded-xl overflow-hidden backdrop-blur-lg
               bg-black/60 border border-neutral-800 shadow-lg"
             >
-              <ActionButton onClick={downloadImage} icon={Download} label="Download" />
-              <ActionButton
-                onClick={generateImage}
-                icon={RotateCcw}
-                label="Regenerate"
-              />
-              <ActionButton onClick={() => setImage(null)} icon={X} label="" />
+              <ActionButton onClick={downloadImage} icon={RiDownload2Line} label="Download" />
+              <ActionButton onClick={generateImage} icon={RiRestartLine} label="Regenerate" />
+              <ActionButton onClick={() => setImage(null)} icon={RiCloseLine} />
             </div>
           )}
         </div>

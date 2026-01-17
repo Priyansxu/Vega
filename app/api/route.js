@@ -14,36 +14,28 @@ export async function POST(request) {
     }
 
     const res = await fetch(
-  `https://api.cloudflare.com/client/v4/accounts/${accountId}/ai/run/@cf/stabilityai/stable-diffusion-xl-base-1.0`,
-  {
-    method: "POST",
-    headers: {
-      Authorization: `Bearer ${apiToken}`,
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({ prompt }),
-  }
-)
+      `https://api.cloudflare.com/client/v4/accounts/${accountId}/ai/run/@cf/stabilityai/stable-diffusion-xl-base-1.0`,
+      {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${apiToken}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ prompt }),
+      }
+    )
 
-const contentType = res.headers.get("content-type") || ""
+    if (!res.ok) {
+      throw new Error(`API Error: ${res.status} ${res.statusText}`)
+    }
 
-let imageBase64
+    // Always treat response as raw bytes
+    const arrayBuffer = await res.arrayBuffer()
+    const imageBase64 = Buffer.from(arrayBuffer).toString("base64")
 
-if (contentType.includes("application/json")) {
-  const data = await res.json()
-  if (!data.success || !data.result?.image?.[0]) {
-    throw new Error("Generation failed")
-  }
-  imageBase64 = data.result.image[0]
-} else {
-  // If raw image bytes returned
-  const arrayBuffer = await res.arrayBuffer()
-  imageBase64 = Buffer.from(arrayBuffer).toString("base64")
-}
-
-return Response.json({
-  image: `data:image/png;base64,${imageBase64}`,
-})
+    return Response.json({
+      image: `data:image/png;base64,${imageBase64}`,
+    })
   } catch (error) {
     return Response.json(
       { error: error instanceof Error ? error.message : "Failed to generate image" },

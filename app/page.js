@@ -9,7 +9,7 @@ export default function Page() {
       <div className="absolute inset-0 -z-10">
         <ColorBends
           autoRotate={2}
-          frequency={2.5}
+          frequency={1}
         />
       </div>
 

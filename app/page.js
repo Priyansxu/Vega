@@ -29,7 +29,7 @@ export default function Page() {
             <ArrowRight className="w-4 h-4 opacity-80" />
           </button>
 
-          <h2 className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-mona font-bold mb-8 leading-tight bg-gradient-to-b from-white via-gray-300 to-gray-400 bg-clip-text text-transparent">
+          <h2 className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-mona font-bold mb-8 leading-tight bg-gradient-to-b from-white via-gray-200 to-gray-300 bg-clip-text text-transparent">
             Seamless. Vega AI
           </h2>
 

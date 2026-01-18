@@ -1,5 +1,3 @@
-  
-
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
@@ -7,7 +5,12 @@ module.exports = {
     "./components/**/*.{js,jsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        mona: ["Mona Sans", "sans-serif"],
+        outfit: ["Outfit", "sans-serif"],
+      },
+    },
   },
   plugins: [],
 }

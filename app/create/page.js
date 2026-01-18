@@ -144,7 +144,7 @@ export default function CreatePage() {
         </div>
       )}
 
-      <footer className="fixed bottom-6 left-0 right-0 text-sm text-neutral-400 flex items-center justify-center gap-2">
+      <footer className="m-6 text-sm text-neutral-400 flex items-center justify-center gap-2">
   <a
     href="https://priyanshu.is-a.dev"
     target="_blank"

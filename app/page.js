@@ -33,14 +33,14 @@ export default function Page() {
             Unleashed, Vega AI
           </h2>
 
-          <p className="font-bold sm:text-lg md:text-xl text-white/90 max-w-2xl mx-auto mb-12 leading-relaxed">
+          <p className="font-medium sm:text-lg md:text-xl text-white/90 max-w-2xl mx-auto mb-12 leading-relaxed">
             Transform your ideas into stunning visuals instantly with our AI-powered image
             generation engine.
           </p>
 
           <div className="w-full flex justify-center">
             <Link href="/create">
-              <button className="px-14 py-4 border border-white bg-[#dedfe1] text-black rounded-md font-mono transition-all duration-300 hover:bg-white/80 transform hover:scale-105 active:scale-95 shadow-xl opacity-90">
+              <button className="px-14 py-4 border border-white bg-[#dedfe1]/80 text-black rounded-md font-mono transition-all duration-300 hover:bg-white/80 transform hover:scale-105 active:scale-95 shadow-xl opacity-90">
                 Start Creating
               </button>
             </Link>

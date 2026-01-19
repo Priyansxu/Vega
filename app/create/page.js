@@ -4,13 +4,21 @@ import { useState, useRef } from "react"
 import { RiAiGenerate } from "react-icons/ri"
 import { IoSparkles } from "react-icons/io5"
 import { FaHeart } from "react-icons/fa"
-import { Download, RotateCcw, Loader, ArrowUpRight } from "lucide-react"
+import { Download, RotateCcw, Loader, ArrowUpRight, Settings, Cpu, X } from "lucide-react"
 
 export default function CreatePage() {
   const [prompt, setPrompt] = useState("")
   const [image, setImage] = useState(null)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState("")
+  const [model, setModel] = useState("sdxl")
+  const [showAdvanced, setShowAdvanced] = useState(false)
+  const [showModelPicker, setShowModelPicker] = useState(false)
+
+  const [width, setWidth] = useState(1024)
+  const [height, setHeight] = useState(1024)
+  const [steps, setSteps] = useState(25)
+  
   const imageRef = useRef(null)
 
   const generateImage = async (e) => {
@@ -25,10 +33,14 @@ export default function CreatePage() {
     setError("")
 
     try {
+      const body = model === "flux" 
+        ? { prompt, model, width, height, steps }
+        : { prompt, model }
+
       const response = await fetch("/api", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ prompt }),
+        body: JSON.stringify(body),
       })
 
       const data = await response.json()
@@ -52,7 +64,7 @@ export default function CreatePage() {
     const url = URL.createObjectURL(blob)
     const a = document.createElement("a")
     a.href = url
-    a.download = `vega-ai-${Date.now()}.png`
+    a.download = `vega-ai-${model}-${Date.now()}.png`
     a.click()
     URL.revokeObjectURL(url)
   }
@@ -94,13 +106,14 @@ export default function CreatePage() {
           value={prompt}
           onChange={(e) => setPrompt(e.target.value)}
           placeholder="A futuristic city floating above clouds..."
+          rows={3}
           className="w-full resize-none px-3 py-2 rounded-lg bg-black/60 border border-neutral-800 text-neutral-100 text-sm font-mono placeholder:text-neutral-600 focus:outline-none focus:ring-2 focus:ring-neutral-700 hover:border-white/40 transition"
         />
 
         <button
           type="submit"
           disabled={loading}
-          className="w-full flex items-center justify-center gap-2 px-4 py-2 rounded-lg bg-white text-black font-medium disabled:opacity-50 transition"
+          className="w-full flex items-center justify-center gap-2 px-4 py-2 rounded-lg bg-white text-black font-medium disabled:opacity-50 transition hover:bg-neutral-200"
         >
           {loading ? (
             <>
@@ -114,6 +127,83 @@ export default function CreatePage() {
             </>
           )}
         </button>
+
+        <div className="flex gap-3">
+          <button
+            type="button"
+            onClick={() => setShowModelPicker(true)}
+            className="flex-1 flex items-center justify-center gap-2 px-4 py-2 rounded-lg bg-black/60 border border-neutral-800 text-neutral-300 font-medium hover:bg-neutral-900 transition"
+          >
+            <Cpu className="w-4 h-4" />
+            {model === "sdxl" ? "SDXL" : "FLUX.2 [Klein]"}
+          </button>
+          
+          <button
+            type="button"
+            onClick={() => setShowAdvanced(!showAdvanced)}
+            className="flex-1 flex items-center justify-center gap-2 px-4 py-2 rounded-lg bg-black/60 border border-neutral-800 text-neutral-300 font-medium hover:bg-neutral-900 transition"
+          >
+            <Settings className="w-4 h-4" />
+            Advanced
+          </button>
+        </div>
+
+        {showAdvanced && model === "flux" && (
+          <div className="p-4 rounded-lg bg-black/60 border border-neutral-800 space-y-4">
+            <div className="space-y-2">
+              <label className="text-neutral-300 text-xs font-mono flex justify-between">
+                <span>Width: {width}px</span>
+              </label>
+              <input
+                type="range"
+                min="512"
+                max="2048"
+                step="64"
+                value={width}
+                onChange={(e) => setWidth(Number(e.target.value))}
+                className="w-full"
+              />
+            </div>
+
+            <div className="space-y-2">
+              <label className="text-neutral-300 text-xs font-mono flex justify-between">
+                <span>Height: {height}px</span>
+              </label>
+              <input
+                type="range"
+                min="512"
+                max="2048"
+                step="64"
+                value={height}
+                onChange={(e) => setHeight(Number(e.target.value))}
+                className="w-full"
+              />
+            </div>
+
+            <div className="space-y-2">
+              <label className="text-neutral-300 text-xs font-mono flex justify-between">
+                <span>Steps: {steps}</span>
+              </label>
+              <input
+                type="range"
+                min="10"
+                max="50"
+                step="1"
+                value={steps}
+                onChange={(e) => setSteps(Number(e.target.value))}
+                className="w-full"
+              />
+            </div>
+          </div>
+        )}
+
+        {showAdvanced && model === "sdxl" && (
+          <div className="p-4 rounded-lg bg-black/60 border border-neutral-800">
+            <p className="text-neutral-400 text-xs font-mono text-center">
+              SDXL uses default settings (1024x1024)
+            </p>
+          </div>
+        )}
       </form>
 
       {image && (
@@ -126,6 +216,62 @@ export default function CreatePage() {
       {error && (
         <div className="mt-4 max-w-3xl w-full rounded-lg border border-red-800 bg-red-900/30 px-3 py-2 text-xs font-mono text-red-300">
           Error: {error}
+        </div>
+      )}
+
+      {showModelPicker && (
+        <div className="fixed inset-0 bg-black/80 flex items-center justify-center z-50 p-4">
+          <div className="bg-neutral-900 border border-neutral-800 rounded-lg p-6 max-w-md w-full">
+            <div className="flex justify-between items-center mb-4">
+              <h2 className="text-neutral-200 font-bold text-lg">Select Model</h2>
+              <button
+                onClick={() => setShowModelPicker(false)}
+                className="text-neutral-400 hover:text-neutral-200 transition"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+
+            <div className="space-y-3">
+              <button
+                onClick={() => {
+                  setModel("sdxl")
+                  setShowModelPicker(false)
+                }}
+                className={`w-full p-4 rounded-lg border-2 transition ${
+                  model === "sdxl"
+                    ? "border-white bg-white/10"
+                    : "border-neutral-800 hover:border-neutral-700"
+                }`}
+              >
+                <div className="text-left">
+                  <h3 className="text-neutral-200 font-bold">SDXL</h3>
+                  <p className="text-neutral-400 text-xs mt-1 font-mono">
+                    Stable Diffusion XL - Fast, reliable image generation
+                  </p>
+                </div>
+              </button>
+
+              <button
+                onClick={() => {
+                  setModel("flux")
+                  setShowModelPicker(false)
+                }}
+                className={`w-full p-4 rounded-lg border-2 transition ${
+                  model === "flux"
+                    ? "border-white bg-white/10"
+                    : "border-neutral-800 hover:border-neutral-700"
+                }`}
+              >
+                <div className="text-left">
+                  <h3 className="text-neutral-200 font-bold">FLUX.2 [Klein]</h3>
+                  <p className="text-neutral-400 text-xs mt-1 font-mono">
+                    Advanced model with customizable dimensions and steps
+                  </p>
+                </div>
+              </button>
+            </div>
+          </div>
         </div>
       )}
 

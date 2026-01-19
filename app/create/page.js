@@ -11,7 +11,7 @@ export default function CreatePage() {
   const [image, setImage] = useState(null)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState("")
-  const [model, setModel] = useState("sdxl")
+  const [model, setModel] = useState("flux")
   const [showAdvanced, setShowAdvanced] = useState(false)
   const [showModelPicker, setShowModelPicker] = useState(false)
 

@@ -4,13 +4,13 @@ import { SpeedInsights } from '@vercel/speed-insights/next'
 
 export const metadata = {
   metadataBase: new URL('https://seronai.vercel.app/'),
-  
+
   title: {
     default: 'Seron AI',
     template: '%s | Seron AI',
   },
 
-  description: 'Seron AI — Fast, creative, and free AI image generation platform.',
+  description: 'A multi-model AI platform for fast, high-quality image generation.',
 
   alternates: {
     canonical: '/',
@@ -22,12 +22,12 @@ export const metadata = {
   },
 
   verification: {
-    google: 'pZ1d-eYCjWFhS07_e1SoS8myfd9oLiHbidf1AdR3t38',
+    google: '',
   },
 
   openGraph: {
     title: 'Seron AI',
-    description: 'Generate stunning visuals instantly with Seron AI. No cost. No watermark.',
+    description: 'A multi-model AI platform for fast, high-quality image generation.',
     url: 'https://seronai.vercel.app/',
     siteName: 'Seron AI',
     images: ['/og.png'],
@@ -37,14 +37,14 @@ export const metadata = {
   twitter: {
     card: 'summary_large_image',
     title: 'Seron AI',
-    description: 'Create high-quality AI-generated images instantly with Seron AI.',
+    description: 'A multi-model AI platform for fast, high-quality image generation.',
     images: ['/og.png'],
   },
 }
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" className="">
+    <html lang="en">
       <head />
       <body className="bg-black text-white font-outfit">
         {children}

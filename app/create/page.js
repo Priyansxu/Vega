@@ -14,7 +14,8 @@ export default function CreatePage() {
   const [model, setModel] = useState("sdxl")
   const [showAdvanced, setShowAdvanced] = useState(false)
   const [showModelPicker, setShowModelPicker] = useState(false)
-
+  
+  // Advanced settings for FLUX
   const [width, setWidth] = useState(1024)
   const [height, setHeight] = useState(1024)
   const [steps, setSteps] = useState(25)
@@ -84,7 +85,7 @@ export default function CreatePage() {
             ref={imageRef}
             src={image}
             alt="Generated"
-            className="w-full h-full object-cover"
+            className="max-w-full max-h-full object-contain"
           />
         ) : (
           <div className="text-center space-y-3 font-mono">
@@ -128,11 +129,12 @@ export default function CreatePage() {
           )}
         </button>
 
+        {/* Model and Advanced Settings Buttons */}
         <div className="flex gap-3">
           <button
             type="button"
             onClick={() => setShowModelPicker(true)}
-            className="flex-1 flex items-center justify-center gap-2 px-4 py-2 rounded-lg bg-black/60 border border-neutral-800 text-neutral-300 font-medium hover:bg-neutral-900 transition"
+            className="flex-1 flex items-center justify-center gap-2 px-4 py-2 rounded-lg bg-black/60 border border-neutral-800 text-neutral-300 text-sm font-medium hover:bg-neutral-900 transition"
           >
             <Cpu className="w-4 h-4" />
             {model === "sdxl" ? "SDXL" : "FLUX.2 [Klein]"}
@@ -141,13 +143,14 @@ export default function CreatePage() {
           <button
             type="button"
             onClick={() => setShowAdvanced(!showAdvanced)}
-            className="flex-1 flex items-center justify-center gap-2 px-4 py-2 rounded-lg bg-black/60 border border-neutral-800 text-neutral-300 font-medium hover:bg-neutral-900 transition"
+            className="flex-1 flex items-center justify-center gap-2 px-4 py-2 rounded-lg bg-black/60 border border-neutral-800 text-neutral-300 text-sm font-medium hover:bg-neutral-900 transition"
           >
             <Settings className="w-4 h-4" />
             Advanced
           </button>
         </div>
 
+        {/* Advanced Settings Panel */}
         {showAdvanced && model === "flux" && (
           <div className="p-4 rounded-lg bg-black/60 border border-neutral-800 space-y-4">
             <div className="space-y-2">
@@ -161,7 +164,10 @@ export default function CreatePage() {
                 step="64"
                 value={width}
                 onChange={(e) => setWidth(Number(e.target.value))}
-                className="w-full"
+                className="w-full accent-white"
+                style={{
+                  background: `linear-gradient(to right, white 0%, white ${((width - 512) / (2048 - 512)) * 100}%, #404040 ${((width - 512) / (2048 - 512)) * 100}%, #404040 100%)`
+                }}
               />
             </div>
 
@@ -176,7 +182,10 @@ export default function CreatePage() {
                 step="64"
                 value={height}
                 onChange={(e) => setHeight(Number(e.target.value))}
-                className="w-full"
+                className="w-full accent-white"
+                style={{
+                  background: `linear-gradient(to right, white 0%, white ${((height - 512) / (2048 - 512)) * 100}%, #404040 ${((height - 512) / (2048 - 512)) * 100}%, #404040 100%)`
+                }}
               />
             </div>
 
@@ -191,7 +200,10 @@ export default function CreatePage() {
                 step="1"
                 value={steps}
                 onChange={(e) => setSteps(Number(e.target.value))}
-                className="w-full"
+                className="w-full accent-white"
+                style={{
+                  background: `linear-gradient(to right, white 0%, white ${((steps - 10) / (50 - 10)) * 100}%, #404040 ${((steps - 10) / (50 - 10)) * 100}%, #404040 100%)`
+                }}
               />
             </div>
           </div>
@@ -219,6 +231,7 @@ export default function CreatePage() {
         </div>
       )}
 
+      {/* Model Picker Modal */}
       {showModelPicker && (
         <div className="fixed inset-0 bg-black/80 flex items-center justify-center z-50 p-4">
           <div className="bg-neutral-900 border border-neutral-800 rounded-lg p-6 max-w-md w-full">
@@ -275,7 +288,7 @@ export default function CreatePage() {
         </div>
       )}
 
-      <footer className="fixed bottom-5 text-sm text-neutral-400 flex items-center justify-center gap-2">
+      <footer className="bottom-2 text-sm text-neutral-400 flex items-center justify-center gap-2">
         <a
           href="https://priyanshu.is-a.dev"
           target="_blank"

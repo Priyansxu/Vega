@@ -5,13 +5,13 @@ export default function sitemap() {
 
   return [
     {
-      url: 'https://vega.js.org',
+      url: 'https://seronai.vercel.app',
       lastModified,
       changeFrequency: 'monthly',
       priority: 1,
     },
     {
-      url: 'https://vega.js.org/create',
+      url: 'https://seronai.vercel.app/create',
       lastModified,
       changeFrequency: 'monthly',
       priority: 0.8,

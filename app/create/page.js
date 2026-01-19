@@ -72,7 +72,7 @@ export default function CreatePage() {
   return (
     <div className="min-h-screen bg-black/90 flex flex-col items-center px-4 py-8">
       <h1 className="mb-6 text-xl font-bold text-neutral-200">
-        VEGA AI
+       SERON AI
       </h1>
 
       <div

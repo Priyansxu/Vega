@@ -15,7 +15,7 @@ export default function Page() {
       <header className="sticky top-4 mx-4 sm:mx-6 lg:mx-8 z-20 backdrop-blur-md bg-black/10 border border-white/10 shadow-lg rounded-xl">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
           <h1 className="text-2xl sm:text-3xl font-bold text-center text-white">
-            VEGA AI
+            SERON AI
           </h1>
         </div>
       </header>
@@ -30,7 +30,7 @@ export default function Page() {
           </button>
 
           <h2 className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-mona font-bold mb-8 leading-tight bg-gradient-to-b from-white via-gray-200 to-gray-300 bg-clip-text text-transparent">
-            Seamless. Vega AI
+            Seamless. Seron AI
           </h2>
 
           <p className="font-medium sm:text-lg md:text-xl text-white/90 max-w-2xl mx-auto mb-12 leading-relaxed">

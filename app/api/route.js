@@ -1,6 +1,6 @@
 export async function POST(request) {
   try {
-    const { prompt, model = "sdxl", width = 1024, height = 1024, steps = 25 } = await request.json()
+    const { prompt, model = "flux", width = 1024, height = 1024, steps = 25 } = await request.json()
 
     if (!prompt || typeof prompt !== "string") {
       return Response.json({ error: "Invalid prompt" }, { status: 400 })

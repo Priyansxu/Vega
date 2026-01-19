@@ -3,6 +3,7 @@
 import Link from "next/link"
 import { ArrowRight } from "lucide-react"
 import { BiSolidZap } from "react-icons/bi"
+import { SignedIn, SignedOut, UserButton, SignInButton, SignUpButton } from '@clerk/nextjs'
 import ColorBends from "@/components/ColorBends"
 
 export default function Page() {
@@ -13,10 +14,28 @@ export default function Page() {
       </div>
 
       <header className="sticky top-4 mx-4 sm:mx-6 lg:mx-8 z-20 backdrop-blur-md bg-black/10 border border-white/10 shadow-lg rounded-xl">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-          <h1 className="text-2xl sm:text-3xl font-bold text-center text-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
+          <h1 className="text-2xl sm:text-3xl font-bold text-white">
             SERON AI
           </h1>
+          
+          <div className="flex items-center gap-4">
+            <SignedIn>
+              <UserButton 
+                appearance={{
+                  elements: {
+                    avatarBox: 'w-10 h-10',
+                  }
+                }}
+              />
+            </SignedIn>
+              <SignInButton mode="modal">
+                <button className="px-4 py-2 text-sm font-medium text-white hover:text-neutral-300 transition">
+                  Sign In
+                </button>
+              </SignInButton>
+            </SignedOut>
+          </div>
         </div>
       </header>
 
@@ -39,11 +58,21 @@ export default function Page() {
           </p>
 
           <div className="w-full flex justify-center">
-            <Link href="/create">
-              <button className="px-14 py-4 border border-white/90 bg-[#dedfe1]/90 text-black rounded-md font-bold transition-all duration-300 hover:bg-white/80 transform hover:scale-105 active:scale-95 shadow-xl tracking-widest opacity-90">
-                Start Creating
-              </button>
-            </Link>
+            <SignedIn>
+              <Link href="/create">
+                <button className="px-14 py-4 border border-white/90 bg-[#dedfe1]/90 text-black rounded-md font-bold transition-all duration-300 hover:bg-white/80 transform hover:scale-105 active:scale-95 shadow-xl tracking-widest opacity-90">
+                  Start Creating
+                </button>
+              </Link>
+            </SignedIn>
+            
+            <SignedOut>
+              <SignUpButton mode="modal">
+                <button className="px-14 py-4 border border-white/90 bg-[#dedfe1]/90 text-black rounded-md font-bold transition-all duration-300 hover:bg-white/80 transform hover:scale-105 active:scale-95 shadow-xl tracking-widest opacity-90">
+                  Get Started
+                </button>
+              </SignUpButton>
+            </SignedOut>
           </div>
         </div>
       </main>

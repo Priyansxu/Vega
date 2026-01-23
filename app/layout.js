@@ -48,7 +48,7 @@ export default function RootLayout({ children }) {
     <ClerkProvider>
       <html lang="en">
         <head />
-        <body className="bg-black text-white font-outfit">
+        <body className="bg-white text-black font-outfit">
           {children}
           <Analytics />
           <SpeedInsights />

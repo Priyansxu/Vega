@@ -1,6 +1,6 @@
 export default function manifest() {
   return {
-    name: 'Seron AI - Multi-Model Image Generation',
+    name: 'Seron AI',
     short_name: 'Seron AI',
     description: 'A multi-model AI platform for fast, high-quality image generation.',
     start_url: '/',

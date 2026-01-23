@@ -65,7 +65,7 @@ export default function CreatePage() {
     const url = URL.createObjectURL(blob)
     const a = document.createElement("a")
     a.href = url
-    a.download = `vega-ai-${model}-${Date.now()}.png`
+    a.download = `SeronAi-${model}-${Date.now()}.png`
     a.click()
     URL.revokeObjectURL(url)
   }

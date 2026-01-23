@@ -55,11 +55,11 @@ export default function Page() {
             <ArrowRight className="w-4 h-4 opacity-80" />
           </button>
 
-          <h2 className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-mona font-bold mb-8 leading-tight bg-gradient-to-b from-black via-gray-200 to-gray-300 bg-clip-text text-transparent">
+          <h2 className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-mona font-bold mb-8 leading-tight bg-gradient-to-b from-white via-gray-200 to-gray-300 bg-clip-text text-transparent">
             Seamless. Seron AI
           </h2>
 
-          <p className="font-medium sm:text-lg md:text-xl text-black/90 max-w-2xl mx-auto mb-12 leading-relaxed">
+          <p className="font-medium sm:text-lg md:text-xl text-white/90 max-w-2xl mx-auto mb-12 leading-relaxed">
             Transform your ideas into stunning visuals instantly with our
             AI-powered image generation engine.
           </p>

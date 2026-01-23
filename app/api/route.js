@@ -52,27 +52,43 @@ export async function POST(request) {
     }
 
     if (model === "phoenix") {
-      const response = await fetch(
-        `https://api.cloudflare.com/client/v4/accounts/${accountId}/ai/run/@cf/leonardo/phoenix-1.0`,
-        {
-          method: "POST",
-          headers: {
-            Authorization: `Bearer ${apiToken}`,
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            prompt,
-            width,
-            height,
-            steps,
-            guidance: 7.5,
-          }),
-        }
-      )
-
-      const data = await response.json()
-      return Response.json({ image: `data:image/png;base64,${data.result.image}` })
+  const response = await fetch(
+    `https://api.cloudflare.com/client/v4/accounts/${accountId}/ai/run/@cf/leonardo/phoenix-1.0`,
+    {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${apiToken}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        prompt,
+        width,
+        height,
+        steps,
+        guidance: 7.5,
+      }),
     }
+  )
+
+  const contentType = response.headers.get("content-type")
+
+  if (contentType?.includes("application/json")) {
+    const data = await response.json()
+    const image =
+      data?.result?.image ||
+      data?.result?.images?.[0]?.image
+
+    if (!image) {
+      return Response.json({ error: "Invalid Phoenix response" }, { status: 500 })
+    }
+
+    return Response.json({ image: `data:image/png;base64,${image}` })
+  }
+
+  const buffer = await response.arrayBuffer()
+  const base64 = Buffer.from(buffer).toString("base64")
+  return Response.json({ image: `data:image/png;base64,${base64}` })
+}
 
     return Response.json({ error: "Invalid model" }, { status: 400 })
   } catch (err) {

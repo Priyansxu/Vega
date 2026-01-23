@@ -45,43 +45,7 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <ClerkProvider
-      appearance={{
-        elements: {
-          // Card/Container
-          card: 'bg-neutral-900 border border-neutral-800 shadow-xl',
-          
-          // Headers
-          headerTitle: 'text-white font-bold',
-          headerSubtitle: 'text-neutral-400',
-          
-          // Form Elements
-          formButtonPrimary: 'bg-white text-black font-medium hover:bg-neutral-200 transition',
-          formFieldLabel: 'text-neutral-300 text-sm',
-          formFieldInput: 'bg-black border border-neutral-800 text-white focus:ring-2 focus:ring-neutral-700',
-          
-          // Social Buttons
-          socialButtonsBlockButton: 'border border-neutral-800 text-white hover:bg-neutral-800 transition',
-          socialButtonsBlockButtonText: 'text-white font-medium',
-          
-          // Footer/Links
-          footerActionLink: 'text-white hover:text-neutral-300 transition',
-          
-          // Identity Preview
-          identityPreviewText: 'text-white',
-          identityPreviewEditButton: 'text-white hover:text-neutral-300',
-          
-          // User Button Popover
-          userButtonPopoverCard: 'bg-neutral-900 border border-neutral-800',
-          userButtonPopoverActionButton: 'text-white hover:bg-neutral-800',
-          userButtonPopoverActionButtonText: 'text-white',
-          
-          // Dividers
-          dividerLine: 'bg-neutral-800',
-          dividerText: 'text-neutral-500',
-        },
-      }}
-    >
+    <ClerkProvider>
       <html lang="en">
         <head />
         <body className="bg-black text-white font-outfit">

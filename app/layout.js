@@ -13,6 +13,13 @@ export const metadata = {
 
   description: 'A multi-model AI platform for fast, high-quality image generation.',
 
+  icons: {
+    icon: [
+      { url: '/favicon.ico' },
+      { url: '/icon.png', sizes: '512x512', type: 'image/png' },
+    ],
+  },
+
   alternates: {
     canonical: '/',
   },

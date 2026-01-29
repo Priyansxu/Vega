@@ -39,7 +39,7 @@ export async function POST(request) {
       formData.append("steps", steps.toString())
 
       const response = await fetch(
-        `https://api.cloudflare.com/client/v4/accounts/${accountId}/ai/run/@cf/black-forest-labs/flux-2-klein-4b`,
+        `https://api.cloudflare.com/client/v4/accounts/${accountId}/ai/run/@cf/black-forest-labs/flux-2-klein-9b`,
         {
           method: "POST",
           headers: { Authorization: `Bearer ${apiToken}` },

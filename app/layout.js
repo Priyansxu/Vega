@@ -7,11 +7,11 @@ export const metadata = {
   metadataBase: new URL('https://seron.is-a.software'),
 
   title: {
-    default: 'Seron AI - Flux, Phoenix, SDXL & Stability AI Image Generator',
+    default: 'Seron AI - Just Imagine',
     template: '%s | Seron AI',
   },
 
-  description: 'Multi-model AI image generation platform featuring Flux 2 Klein, Phoenix 1.0, SDXL, Stability AI, and Leonardo AI. Create stunning AI art with the latest text-to-image models.',
+  description: 'Multi-model AI image generation platform featuring models like Flux 2 Klein & Phoenix 1.0. Create stunning AI art with the new generation models',
 
   keywords: [
     'Flux 2 Klein',
